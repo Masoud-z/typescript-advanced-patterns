@@ -1,19 +1,19 @@
 import { it } from "vitest";
 import { Brand } from "../helpers/Brand";
 
-type Valid<T> = unknown;
+type Valid<T> = Brand<T, "Valid">;
 
 interface PasswordValues {
   password: string;
   confirmPassword: string;
 }
 
-const validatePassword = (values: PasswordValues) => {
+const validatePassword = (values: PasswordValues): Valid<PasswordValues> => {
   if (values.password !== values.confirmPassword) {
     throw new Error("Passwords do not match");
   }
 
-  return values;
+  return values as Valid<PasswordValues>;
 };
 
 const createUserOnApi = (values: Valid<PasswordValues>) => {
