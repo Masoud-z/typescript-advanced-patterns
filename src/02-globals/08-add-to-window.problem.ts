@@ -1,6 +1,12 @@
 import { expect, it } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
+declare global {
+  interface Window {
+    makeGreeting: () => string;
+  }
+}
+
 /**
  * Clues:
  *
