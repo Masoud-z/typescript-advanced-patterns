@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { it } from "vitest";
 
 /**
  * Here, we've actually got _multiple_ problem files!
