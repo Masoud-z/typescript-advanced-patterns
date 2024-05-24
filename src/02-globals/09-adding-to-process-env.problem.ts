@@ -1,6 +1,14 @@
 import { expect, it } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      MY_ENV_VAR: string;
+    }
+  }
+}
+
 /**
  * Clues:
  *
