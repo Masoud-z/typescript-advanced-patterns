@@ -5,14 +5,10 @@ interface User {
 }
 
 export class SDK {
-  loggedInUser?: User;
-
-  constructor(loggedInUser?: User) {
-    this.loggedInUser = loggedInUser;
-  }
+  constructor(public loggedInUser?: User) {}
 
   // How do we type this assertion function?
-  assertIsLoggedIn() {
+  assertIsLoggedIn(): asserts this is this & { loggedInUser: User } {
     if (!this.loggedInUser) {
       throw new Error("Not logged in");
     }
