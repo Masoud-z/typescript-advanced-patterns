@@ -9,13 +9,11 @@ export class BuilderTuple<TList extends any[] = []> {
 
   push<TNum extends number>(num: TNum): BuilderTuple<[...TList, TNum]> {
     this.list.push(num);
-
     return this as any;
   }
 
   unshift<TNum extends number>(num: TNum): BuilderTuple<[TNum, ...TList]> {
     this.list.unshift(num);
-
     return this as any;
   }
 }
@@ -25,6 +23,8 @@ const listBeforePush = builderBeforePush.list;
 
 const builderAfterPush = builderBeforePush.unshift(3).unshift(2).unshift(1);
 const listAfterPush = builderAfterPush.list;
+const builderPush = builderBeforePush.push(3).push(2).push(1);
+const listPush = builderPush.list;
 
 type tests = [
   Expect<Equal<typeof builderBeforePush, BuilderTuple<[]>>>,
