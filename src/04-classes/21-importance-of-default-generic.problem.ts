@@ -7,7 +7,7 @@ import { expect, it } from "vitest";
  * Clue: it's somewhere inside class TypeSafeStringMap, and it's
  * on the type level - not the runtime level.
  */
-class TypeSafeStringMap<TMap extends Record<string, string>> {
+class TypeSafeStringMap<TMap extends Record<string, string> = {}> {
   private map: TMap;
   constructor() {
     this.map = {} as TMap;
@@ -19,7 +19,7 @@ class TypeSafeStringMap<TMap extends Record<string, string>> {
 
   set<K extends string>(
     key: K,
-    value: string,
+    value: string
   ): TypeSafeStringMap<TMap & Record<K, string>> {
     (this.map[key] as any) = value;
 
@@ -35,7 +35,7 @@ const map = new TypeSafeStringMap()
 it("Should not allow getting values which do not exist", () => {
   map.get(
     // @ts-expect-error
-    "jim",
+    "jim"
   );
 });
 
