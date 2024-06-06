@@ -21,7 +21,9 @@ class DynamicMiddleware<TInput, TOutput> {
   }
 
   // Clue: you'll need to make changes here!
-  use(middleware: Middleware<TInput, TOutput>): unknown {
+  use<TNewOutput>(
+    middleware: Middleware<TOutput, TNewOutput>
+  ): DynamicMiddleware<TInput, TNewOutput> {
     this.middleware.push(middleware);
 
     return this as any;
