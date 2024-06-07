@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { List } from "lodash";
 import { expect, it } from "vitest";
 import { doNotExecute, Equal, Expect } from "../helpers/type-utils";
 
@@ -10,7 +10,7 @@ import { doNotExecute, Equal, Expect } from "../helpers/type-utils";
  * 2. Take a look at the typings for _.groupBy to
  * see if you can understand them.
  */
-const groupByAge = (array: unknown[]) => {
+const groupByAge = <TObj extends { age: number }>(array: List<TObj>) => {
   const grouped = _.groupBy(array, "age");
 
   return grouped;
