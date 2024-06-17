@@ -1,3 +1,5 @@
+import { F } from "ts-toolbelt";
+
 type NoInfer<T> = [T][T extends any ? 0 : never];
 
 /**
@@ -7,7 +9,7 @@ type NoInfer<T> = [T][T extends any ? 0 : never];
  * to get it to work.
  */
 interface FSMConfig<TState extends string> {
-  initial: TState;
+  initial: F.NoInfer<TState>;
   states: Record<
     TState,
     {
@@ -17,7 +19,7 @@ interface FSMConfig<TState extends string> {
 }
 
 export const makeFiniteStateMachine = <TState extends string>(
-  config: FSMConfig<TState>,
+  config: FSMConfig<TState>
 ) => config;
 
 const config = makeFiniteStateMachine({
