@@ -1,6 +1,8 @@
 import { Equal, Expect } from "../helpers/type-utils";
 
-export function makeEventHandlers(obj: unknown) {
+export function makeEventHandlers<TObj>(obj: {
+  [K in keyof TObj]: (key: K) => any;
+}) {
   return obj;
 }
 
