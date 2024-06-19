@@ -2,14 +2,18 @@ import express, { RequestHandler } from "express";
 import { it } from "vitest";
 import { z, ZodError } from "zod";
 import { Equal, Expect } from "../helpers/type-utils";
+import { ParsedQs } from "qs";
 
-const makeTypeSafeHandler = (
+const makeTypeSafeHandler = <
+  TQueryResult extends ParsedQs = any,
+  TBodyResult extends Record<string, any> = any
+>(
   config: {
-    query?: z.Schema;
-    body?: z.Schema;
+    query?: z.Schema<TQueryResult>;
+    body?: z.Schema<TBodyResult>;
   },
-  handler: RequestHandler
-): RequestHandler => {
+  handler: RequestHandler<any, any, TBodyResult, TQueryResult>
+): RequestHandler<any, any, TBodyResult, TQueryResult> => {
   return (req, res, next) => {
     const { query, body } = req;
     if (config.query) {
