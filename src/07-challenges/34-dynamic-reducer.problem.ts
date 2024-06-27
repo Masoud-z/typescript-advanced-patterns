@@ -22,19 +22,28 @@ type TestingPayloadsToDiscriminatedUnion = PayloadsToDiscriminatedUnion<{
  *
  * You'll need to add two generics here!
  */
-export class DynamicReducer {
-  private handlers = {} as unknown;
+export class DynamicReducer<
+  TState,
+  TPayloadMap extends Record<string, any> = {}
+> {
+  private handlers = {} as Record<
+    string,
+    (state: TState, payload: any) => TState
+  >;
 
-  addHandler(
-    type: unknown,
-    handler: (state: unknown, payload: unknown) => unknown
-  ): unknown {
+  addHandler<TType extends string, TPayload extends object >(
+    type: TType,
+    handler: (state: TState, payload: TPayload) => TState
+  ): DynamicReducer<TState, TPayloadMap & Record<TType, TPayload>> {
     this.handlers[type] = handler;
 
     return this;
   }
 
-  reduce(state: unknown, action: unknown): unknown {
+  reduce(
+    state: TState,
+    action: PayloadsToDiscriminatedUnion<TPayloadMap>
+  ): TState {
     const handler = this.handlers[action.type];
     if (!handler) {
       return state;
