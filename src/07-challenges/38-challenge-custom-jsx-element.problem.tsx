@@ -1,5 +1,4 @@
 import React from "react";
-
 /**
  * How do we add a new base element to React's JSX?
  *
@@ -9,5 +8,15 @@ import React from "react";
  * The JSX namespace comes from React - you'll need
  * to check out React's type definitions.
  */
+
+type test = JSX.IntrinsicElements;
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "custom-element": { children?: React.ReactNode };
+    }
+  }
+}
 
 const element = <custom-element>hello world</custom-element>;
